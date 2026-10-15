@@ -1,11 +1,8 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp2
 {
-    /// <summary>
-    /// Panel con doble buffer activado para que el dibujo no parpadee.
-    /// (La propiedad DoubleBuffered del Panel es protegida, por eso se hereda.)
-    /// </summary>
+    // Panel con doble buffer para evitar parpadeo
     public class clsPanelDoble : Panel
     {
         public clsPanelDoble()
@@ -15,4 +12,3 @@ namespace WindowsFormsApp2
         }
     }
 }
-

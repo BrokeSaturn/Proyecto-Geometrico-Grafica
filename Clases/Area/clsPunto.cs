@@ -1,8 +1,6 @@
-﻿namespace WindowsFormsApp2
+namespace WindowsFormsApp2
 {
-    /// <summary>
-    /// Representa un punto (vertice) en el plano cartesiano.
-    /// </summary>
+    // Coordenada bidimensional
     public class clsPunto
     {
         private double dblX;
@@ -26,11 +24,9 @@
             set { dblY = value; }
         }
 
-        // Texto amigable para mostrar en el ListBox, ej: "(2.5, 3)"
         public override string ToString()
         {
             return "(" + dblX.ToString("0.##") + ", " + dblY.ToString("0.##") + ")";
         }
     }
 }
-

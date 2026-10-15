@@ -1,20 +1,16 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp2
 {
-    /// <summary>
-    /// Formulario principal. Los controles se crean por codigo (CrearControles),
-    /// asi no hace falta arrastrarlos desde la caja de herramientas.
-    /// </summary>
+    // Formulario interactivo para calculo de area
     public partial class FrmArea : Form
     {
-        // ----- Objetos de negocio -----
         private clsPoligono objPoligono = new clsPoligono();
         private clsCalculadoraArea objCalculadora = new clsCalculadoraArea();
 
-        // ----- Escala del plano: cuantos pixeles vale 1 unidad -----
+        // Pixeles equivalentes a 1 unidad matematica
         private double dblEscala = 20.0;
 
         public FrmArea()
@@ -23,17 +19,13 @@ namespace WindowsFormsApp2
             ActualizarResultado("", false);
         }
 
-        // =====================================================
-        //  CONVERSION DE COORDENADAS (pantalla <-> matematicas)
-        // =====================================================
-
-        // Origen (0,0) en el centro del panel
+        // Origen (0,0) centrado en el panel
         private PointF ObtenerOrigen()
         {
             return new PointF(pnlDibujo.ClientSize.Width / 2f, pnlDibujo.ClientSize.Height / 2f);
         }
 
-        // Matematicas -> pantalla. En pantalla Y crece hacia ABAJO, por eso se resta.
+        // Coordenadas matematicas a pantalla (Y crece hacia abajo)
         private PointF MatematicasAPantalla(double dblX, double dblY)
         {
             PointF ptOrigen = ObtenerOrigen();
@@ -42,19 +34,15 @@ namespace WindowsFormsApp2
             return new PointF(sngX, sngY);
         }
 
-        // Pantalla -> matematicas (operacion inversa)
+        // Coordenadas de pantalla a matematicas (Y crece hacia arriba)
         private clsPunto PantallaAMatematicas(Point ptMouse)
         {
             PointF ptOrigen = ObtenerOrigen();
             double dblX = (ptMouse.X - ptOrigen.X) / dblEscala;
             double dblY = (ptOrigen.Y - ptMouse.Y) / dblEscala;
-            // Se redondea a 1 decimal para que los clics queden en numeros "bonitos"
             return new clsPunto(Math.Round(dblX, 1), Math.Round(dblY, 1));
         }
 
-        // =====================================================
-        //  DIBUJO (evento Paint)
-        // =====================================================
         private void pnlDibujo_Paint(object sender, PaintEventArgs e)
         {
             Graphics gfxLienzo = e.Graphics;
@@ -82,13 +70,11 @@ namespace WindowsFormsApp2
                 int intAlto = pnlDibujo.ClientSize.Height;
                 float sngPaso = (float)dblEscala;
 
-                // Lineas verticales a la derecha e izquierda del origen
                 for (float sngX = ptOrigen.X; sngX < intAncho; sngX += sngPaso)
                     gfxLienzo.DrawLine(penCuadricula, sngX, 0, sngX, intAlto);
                 for (float sngX = ptOrigen.X - sngPaso; sngX > 0; sngX -= sngPaso)
                     gfxLienzo.DrawLine(penCuadricula, sngX, 0, sngX, intAlto);
 
-                // Lineas horizontales hacia abajo y hacia arriba
                 for (float sngY = ptOrigen.Y; sngY < intAlto; sngY += sngPaso)
                     gfxLienzo.DrawLine(penCuadricula, 0, sngY, intAncho, sngY);
                 for (float sngY = ptOrigen.Y - sngPaso; sngY > 0; sngY -= sngPaso)
@@ -105,12 +91,11 @@ namespace WindowsFormsApp2
             using (Pen penEje = new Pen(Color.Black, 2))
             using (Font fntTexto = new Font("Segoe UI", 8))
             {
-                gfxLienzo.DrawLine(penEje, 0, ptOrigen.Y, intAncho, ptOrigen.Y);   // eje X
-                gfxLienzo.DrawLine(penEje, ptOrigen.X, 0, ptOrigen.X, intAlto);    // eje Y
+                gfxLienzo.DrawLine(penEje, 0, ptOrigen.Y, intAncho, ptOrigen.Y);
+                gfxLienzo.DrawLine(penEje, ptOrigen.X, 0, ptOrigen.X, intAlto);
                 gfxLienzo.DrawString("X", fntTexto, Brushes.Black, intAncho - 15, ptOrigen.Y + 3);
                 gfxLienzo.DrawString("Y", fntTexto, Brushes.Black, ptOrigen.X + 4, 2);
 
-                // Numeros cada 5 unidades
                 int intMaxX = (int)(ptOrigen.X / dblEscala);
                 int intMaxY = (int)(ptOrigen.Y / dblEscala);
                 for (int intK = -intMaxX; intK <= intMaxX; intK += 5)
@@ -128,7 +113,6 @@ namespace WindowsFormsApp2
             }
         }
 
-        // Convierte todos los vertices a puntos de pantalla
         private PointF[] ObtenerPuntosPantalla()
         {
             PointF[] arrPuntos = new PointF[objPoligono.Cantidad];
@@ -142,11 +126,9 @@ namespace WindowsFormsApp2
 
         private void DibujarRelleno(Graphics gfxLienzo)
         {
-            // Solo se rellena si hay 3+ vertices y el poligono esta cerrado
             if (objPoligono.Cantidad < 3 || !objPoligono.Cerrado) return;
 
             PointF[] arrPuntos = ObtenerPuntosPantalla();
-            // Alpha 90 = semitransparente
             using (Brush brsRelleno = new SolidBrush(Color.FromArgb(90, Color.DodgerBlue)))
             {
                 gfxLienzo.FillPolygon(brsRelleno, arrPuntos);
@@ -163,7 +145,6 @@ namespace WindowsFormsApp2
                 gfxLienzo.DrawLines(penLinea, arrPuntos);
                 if (objPoligono.Cerrado)
                 {
-                    // Arista de cierre: ultimo -> primero
                     gfxLienzo.DrawLine(penLinea, arrPuntos[arrPuntos.Length - 1], arrPuntos[0]);
                 }
             }
@@ -171,7 +152,7 @@ namespace WindowsFormsApp2
 
         private void DibujarPuntos(Graphics gfxLienzo)
         {
-            // Con muchos vertices los circulos tapan el dibujo, asi que se omiten
+            // Omitir puntos individuales si son demasiados
             if (objPoligono.Cantidad > 200) return;
 
             PointF[] arrPuntos = ObtenerPuntosPantalla();
@@ -179,16 +160,13 @@ namespace WindowsFormsApp2
             {
                 for (int intI = 0; intI < arrPuntos.Length; intI++)
                 {
-                    Brush brsPunto = (intI == 0) ? Brushes.Green : Brushes.Red;   // el primero en verde
+                    Brush brsPunto = (intI == 0) ? Brushes.Green : Brushes.Red;
                     gfxLienzo.FillEllipse(brsPunto, arrPuntos[intI].X - 4, arrPuntos[intI].Y - 4, 8, 8);
                     gfxLienzo.DrawString("V" + (intI + 1), fntTexto, Brushes.Black, arrPuntos[intI].X + 5, arrPuntos[intI].Y - 16);
                 }
             }
         }
 
-        // =====================================================
-        //  EVENTOS DEL MOUSE
-        // =====================================================
         private void pnlDibujo_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left) return;
@@ -204,21 +182,17 @@ namespace WindowsFormsApp2
             lblCoordenadas.Text = "Mouse: (" + objPunto.X.ToString("0.#") + ", " + objPunto.Y.ToString("0.#") + ")";
         }
 
-        // =====================================================
-        //  EVENTOS DE LOS BOTONES
-        // =====================================================
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             double dblX;
             double dblY;
 
-            // TryParse evita que el programa se caiga si el texto no es numero
             bool blnXValido = double.TryParse(txtX.Text.Trim(), out dblX);
             bool blnYValido = double.TryParse(txtY.Text.Trim(), out dblY);
 
             if (!blnXValido || !blnYValido)
             {
-                MostrarError("Escriba numeros validos en X e Y (use el separador decimal de su sistema).");
+                MostrarError("Escriba numeros validos en X e Y.");
                 return;
             }
 
@@ -280,6 +254,7 @@ namespace WindowsFormsApp2
             txtPasos.Text = objCalculadora.ObtenerPasoAPaso(objPoligono.Vertices);
         }
 
+        // Prueba de rendimiento con poligono circular de 1000 lados
         private void btnProbarMil_Click(object sender, EventArgs e)
         {
             int intCantidad = 1000;
@@ -306,10 +281,9 @@ namespace WindowsFormsApp2
                             "Area calculada (Gauss) = " + dblArea.ToString("0.#####") + Environment.NewLine +
                             "Area teorica (pi*r^2)  = " + dblTeorica.ToString("0.#####") + Environment.NewLine +
                             "Diferencia             = " + dblError.ToString("0.#####") + Environment.NewLine +
-                            "El algoritmo hace solo " + intCantidad + " determinantes: es O(n).";
+                            "Complejidad O(n): calculo instantaneo.";
         }
 
-        // Genera n vertices sobre un circulo, en sentido antihorario
         private void GenerarCirculo(int intCantidad, double dblRadio)
         {
             for (int intI = 0; intI < intCantidad; intI++)
@@ -324,19 +298,16 @@ namespace WindowsFormsApp2
             pnlDibujo.Invalidate();
         }
 
-        // =====================================================
-        //  ACTUALIZACION DE LA INTERFAZ
-        // =====================================================
         private void RefrescarTodo()
         {
             RefrescarLista();
             ActualizarResultado("", false);
-            pnlDibujo.Invalidate();   // pide que se vuelva a disparar Paint
+            pnlDibujo.Invalidate();
         }
 
         private void RefrescarLista()
         {
-            lbxVertices.BeginUpdate();   // evita parpadeo al llenar muchos elementos
+            lbxVertices.BeginUpdate();
             lbxVertices.Items.Clear();
             for (int intI = 0; intI < objPoligono.Cantidad; intI++)
             {
@@ -365,4 +336,3 @@ namespace WindowsFormsApp2
         }
     }
 }
-

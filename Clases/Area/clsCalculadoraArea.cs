@@ -1,22 +1,19 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace WindowsFormsApp2
 {
-    /// <summary>
-    /// Calcula el area con la formula de Gauss (determinantes 2x2).
-    /// </summary>
+    // Calculo del area usando determinantes 2x2 (Gauss)
     public class clsCalculadoraArea
     {
-        // Determinante | x1 x2 |
-        //              | y1 y2 |  = x1*y2 - x2*y1
+        // Determinante 2x2: x1*y2 - x2*y1
         public double Determinante(clsPunto objP1, clsPunto objP2)
         {
             return objP1.X * objP2.Y - objP2.X * objP1.Y;
         }
 
-        // Suma de todos los determinantes (el ultimo vertice se une con el primero)
+        // Suma ciclica de determinantes conectando el ultimo vertice al primero
         public double CalcularSuma(List<clsPunto> lstVertices)
         {
             double dblSuma = 0;
@@ -24,20 +21,19 @@ namespace WindowsFormsApp2
 
             for (int intI = 0; intI < intN; intI++)
             {
-                // El operador % hace que despues del ultimo vuelva al indice 0
                 int intSiguiente = (intI + 1) % intN;
                 dblSuma += Determinante(lstVertices[intI], lstVertices[intSiguiente]);
             }
             return dblSuma;
         }
 
-        // Area = |suma| / 2 (el valor absoluto elimina el efecto del sentido)
+        // Area = |suma| / 2
         public double CalcularArea(List<clsPunto> lstVertices)
         {
             return Math.Abs(CalcularSuma(lstVertices)) / 2.0;
         }
 
-        // Suma > 0 -> antihorario, suma < 0 -> horario
+        // Sentido de giro segun el signo de la suma
         public string ObtenerSentido(List<clsPunto> lstVertices)
         {
             double dblSuma = CalcularSuma(lstVertices);
@@ -46,7 +42,7 @@ namespace WindowsFormsApp2
             return "indefinido (area cero)";
         }
 
-        // Texto didactico con cada determinante
+        // Desglose de cada determinante para visualizacion
         public string ObtenerPasoAPaso(List<clsPunto> lstVertices)
         {
             StringBuilder objTexto = new StringBuilder();
@@ -64,7 +60,7 @@ namespace WindowsFormsApp2
                 double dblDet = Determinante(objA, objB);
                 dblSuma += dblDet;
 
-                objTexto.AppendLine("V" + (intI + 1) + " -> V" + (intSiguiente + 1) + ":  (" +
+                objTexto.AppendLine("V" + (intI + 1) + " -> V" + (intSiguiente + 1) + ": (" +
                     objA.X.ToString("0.###") + ")*(" + objB.Y.ToString("0.###") + ") - (" +
                     objB.X.ToString("0.###") + ")*(" + objA.Y.ToString("0.###") + ") = " +
                     dblDet.ToString("0.###"));
@@ -79,4 +75,3 @@ namespace WindowsFormsApp2
         }
     }
 }
-

@@ -1,11 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace WindowsFormsApp2
 {
-    /// <summary>
-    /// Guarda los vertices del contorno y valida que sea un poligono simple.
-    /// </summary>
+    // Administrador de vertices y validaciones geometricas
     public class clsPoligono
     {
         private List<clsPunto> lstVertices = new List<clsPunto>();
@@ -32,11 +30,8 @@ namespace WindowsFormsApp2
             get { return strUltimoError; }
         }
 
-        // ---------- Edicion de vertices ----------
-
         public void AgregarVertice(double dblX, double dblY)
         {
-            // Si ya estaba cerrado y se agrega otro punto, se vuelve a abrir
             blnCerrado = false;
             lstVertices.Add(new clsPunto(dblX, dblY));
         }
@@ -57,9 +52,6 @@ namespace WindowsFormsApp2
             strUltimoError = "";
         }
 
-        // ---------- Validaciones ----------
-
-        // Cierra el poligono (el ultimo vertice se une con el primero)
         public bool Cerrar()
         {
             if (!TieneMinimoVertices())
@@ -69,7 +61,7 @@ namespace WindowsFormsApp2
             blnCerrado = true;
             if (TieneAutointersecciones())
             {
-                blnCerrado = false;   // no se permite cerrar un contorno invalido
+                blnCerrado = false;
                 return false;
             }
             return true;
@@ -85,7 +77,7 @@ namespace WindowsFormsApp2
             return true;
         }
 
-        // Validacion completa: minimo, cierre y sin cruces
+        // Valida minimo de vertices, cierre y ausencia de cruces
         public bool EsValido()
         {
             if (!TieneMinimoVertices())
@@ -104,11 +96,10 @@ namespace WindowsFormsApp2
             return true;
         }
 
-        // Compara cada arista con las demas NO consecutivas.
+        // Comprueba cruces entre aristas no consecutivas
         public bool TieneAutointersecciones()
         {
             int intN = lstVertices.Count;
-            // Si esta abierto hay n-1 aristas; si esta cerrado hay n
             int intAristas = blnCerrado ? intN : intN - 1;
 
             for (int intI = 0; intI < intAristas; intI++)
@@ -117,7 +108,7 @@ namespace WindowsFormsApp2
                 {
                     if (SonConsecutivas(intI, intJ, intAristas))
                     {
-                        continue;   // las aristas vecinas comparten un vertice: es normal
+                        continue;
                     }
 
                     clsPunto objA = lstVertices[intI];
@@ -127,8 +118,8 @@ namespace WindowsFormsApp2
 
                     if (SeCruzan(objA, objB, objC, objD))
                     {
-                        strUltimoError = "El poligono se autointersecta: la arista V" + (intI + 1) +
-                                         "-V" + (((intI + 1) % intN) + 1) + " cruza la arista V" + (intJ + 1) +
+                        strUltimoError = "El poligono se autointersecta: arista V" + (intI + 1) +
+                                         "-V" + (((intI + 1) % intN) + 1) + " cruza con V" + (intJ + 1) +
                                          "-V" + (((intJ + 1) % intN) + 1) + ".";
                         return true;
                     }
@@ -137,8 +128,7 @@ namespace WindowsFormsApp2
             return false;
         }
 
-        // Dos aristas son consecutivas si estan una al lado de la otra.
-        // Si esta cerrado, la ultima arista tambien es vecina de la primera.
+        // Dos aristas consecutivas comparten vertice por definicion
         private bool SonConsecutivas(int intI, int intJ, int intAristas)
         {
             if (intJ == intI + 1)
@@ -152,10 +142,7 @@ namespace WindowsFormsApp2
             return false;
         }
 
-        // ---------- Geometria: orientacion con producto cruz ----------
-
-        // Producto cruz de (B-A) x (C-A):
-        //  > 0 giro a la izquierda, < 0 giro a la derecha, 0 colineales.
+        // Producto cruz para orientacion: >0 izquierda, <0 derecha, 0 colineal
         private double Orientacion(clsPunto objA, clsPunto objB, clsPunto objC)
         {
             return (objB.X - objA.X) * (objC.Y - objA.Y) - (objB.Y - objA.Y) * (objC.X - objA.X);
@@ -168,14 +155,14 @@ namespace WindowsFormsApp2
             return 0;
         }
 
-        // Si C esta alineado con A-B, revisa si cae dentro del segmento
+        // Comprueba si un punto colineal se encuentra sobre el segmento
         private bool EstaEnSegmento(clsPunto objA, clsPunto objB, clsPunto objC)
         {
             return Math.Min(objA.X, objB.X) <= objC.X && objC.X <= Math.Max(objA.X, objB.X) &&
                    Math.Min(objA.Y, objB.Y) <= objC.Y && objC.Y <= Math.Max(objA.Y, objB.Y);
         }
 
-        // Segmento AB cruza segmento CD?
+        // Verifica si los segmentos AB y CD se cruzan
         private bool SeCruzan(clsPunto objA, clsPunto objB, clsPunto objC, clsPunto objD)
         {
             int intO1 = Signo(Orientacion(objA, objB, objC));
@@ -183,13 +170,13 @@ namespace WindowsFormsApp2
             int intO3 = Signo(Orientacion(objC, objD, objA));
             int intO4 = Signo(Orientacion(objC, objD, objB));
 
-            // Caso general: C y D en lados opuestos de AB, y A y B en lados opuestos de CD
+            // Caso general: orientaciones opuestas
             if (intO1 != intO2 && intO3 != intO4)
             {
                 return true;
             }
 
-            // Casos especiales: un punto cae justo sobre la otra arista
+            // Casos limite: extremos o puntos sobre la arista
             if (intO1 == 0 && EstaEnSegmento(objA, objB, objC)) return true;
             if (intO2 == 0 && EstaEnSegmento(objA, objB, objD)) return true;
             if (intO3 == 0 && EstaEnSegmento(objC, objD, objA)) return true;
@@ -199,4 +186,3 @@ namespace WindowsFormsApp2
         }
     }
 }
-
