@@ -1,0 +1,215 @@
+﻿\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{listings}
+\geometry{margin=2.5cm}
+
+\newcommand{\deter}[4]{\begin{vmatrix} #1 & #2 \\ #3 & #4 \end{vmatrix}}
+
+\title{\'Area de pol\'igonos irregulares\\ F\'ormula de Gauss (``cord\'on de zapato'') con determinantes $2\times2$}
+\author{Computaci\'on Gr\'afica}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{El problema}
+Una parcela tiene un contorno irregular dado por sus v\'ertices ordenados
+$P_1(x_1,y_1),\,P_2(x_2,y_2),\dots,P_n(x_n,y_n)$. Queremos su superficie
+\textbf{sin} dividirla a mano en figuras simples, y que funcione igual con
+$5$, $100$ o $1\,000$ v\'ertices (pol\'igonos simples, convexos o c\'oncavos).
+
+\section{El determinante $2\times 2$ (Clase 04)}
+Para dos v\'ertices consecutivos $P_i$ y $P_{i+1}$:
+\[
+D_i=\begin{vmatrix} x_i & x_{i+1} \\ y_i & y_{i+1} \end{vmatrix}
+= x_i\,y_{i+1}-x_{i+1}\,y_i .
+\]
+(``Se multiplica en cruz y se resta''.)
+
+\section{La f\'ormula de Gauss}
+\begin{enumerate}
+  \item Calcular $D_i$ para cada par consecutivo.
+  \item Sumar todos, uniendo el \'ultimo v\'ertice con el primero ($P_{n+1}=P_1$):
+  \[
+  S=\sum_{i=1}^{n} D_i=\sum_{i=1}^{n}\left(x_i\,y_{i+1}-x_{i+1}\,y_i\right).
+  \]
+  \item El \'area es
+  \[
+  \boxed{A=\frac{|S|}{2}}
+  \]
+\end{enumerate}
+
+\section{¿Por qu\'e funciona? (explicaci\'on sencilla)}
+Tomemos el origen $O=(0,0)$ y el tri\'angulo $O\,P_i\,P_{i+1}$. Sus lados desde $O$
+son los vectores $\vec{u}=(x_i,y_i)$ y $\vec{v}=(x_{i+1},y_{i+1})$. El
+paralelogramo que forman tiene \'area $|D_i|$, as\'i que el tri\'angulo mide
+$|D_i|/2$. Adem\'as, $D_i$ tiene \textbf{signo}:
+\[
+\frac{D_i}{2}=
+\begin{cases}
++\text{\'area del tri\'angulo} & \text{si } P_i\to P_{i+1} \text{ gira en sentido antihorario respecto a } O,\\[2pt]
+-\text{\'area del tri\'angulo} & \text{si gira en sentido horario}.
+\end{cases}
+\]
+Al recorrer todo el contorno sumamos tri\'angulos con signo:
+\begin{itemize}
+  \item Las zonas que quedan \textbf{dentro} del pol\'igono se cuentan $+1$ vez neta.
+  \item Las zonas que quedan \textbf{fuera} (entre el origen y el contorno) se suman
+        con $+$ en un lado y con $-$ al regresar, as\'i que \textbf{se cancelan}.
+\end{itemize}
+Queda \'unicamente el \'area del pol\'igono, sin importar d\'onde est\'e el origen:
+\[
+\frac{S}{2}=\sum_{i=1}^{n}\frac{D_i}{2}=\pm A .
+\]
+El valor absoluto elimina el signo que depende del sentido de recorrido.
+
+\section{Sentido del recorrido}
+\[
+S>0\Rightarrow \text{antihorario},\qquad
+S<0\Rightarrow \text{horario},\qquad
+S=0\Rightarrow \text{\'area nula (o contorno degenerado/autointersecante)}.
+\]
+
+\section{Ejemplos num\'ericos}
+
+\subsection{Cuadrado de lado 4}
+V\'ertices (antihorario): $P_1(0,0),\;P_2(4,0),\;P_3(4,4),\;P_4(0,4)$.
+\begin{align*}
+D_1&=\deter{0}{4}{0}{0}=0\cdot0-4\cdot0=0\\
+D_2&=\deter{4}{4}{0}{4}=4\cdot4-4\cdot0=16\\
+D_3&=\deter{4}{0}{4}{4}=4\cdot4-0\cdot4=16\\
+D_4&=\deter{0}{0}{4}{0}=0\cdot0-0\cdot4=0\quad(P_4\to P_1)
+\end{align*}
+\[
+S=0+16+16+0=32,\qquad A=\frac{|32|}{2}=\boxed{16}\ \text{u}^2,\qquad S>0\ \Rightarrow\ \text{antihorario}.
+\]
+Si se recorre al rev\'es ($P_1,P_4,P_3,P_2$) se obtiene $S=-32$ (horario) y el mismo
+$A=16$.
+
+\subsection{Tri\'angulo}
+$P_1(0,0),\;P_2(4,0),\;P_3(0,3)$.
+\begin{align*}
+D_1&=0\cdot0-4\cdot0=0\\
+D_2&=4\cdot3-0\cdot0=12\\
+D_3&=0\cdot0-0\cdot3=0\quad(P_3\to P_1)
+\end{align*}
+\[
+S=12,\qquad A=\frac{12}{2}=\boxed{6}\ \text{u}^2\ \text{(coincide con } \tfrac{b\,h}{2}=\tfrac{4\cdot3}{2}\text{)}.
+\]
+
+\subsection{Pol\'igono c\'oncavo en ``L''}
+$P_1(0,0),\,P_2(4,0),\,P_3(4,2),\,P_4(2,2),\,P_5(2,4),\,P_6(0,4)$.
+\begin{center}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$i$ & Par & $x_iy_{i+1}-x_{i+1}y_i$ & $D_i$\\
+\midrule
+1 & $P_1\to P_2$ & $0\cdot0-4\cdot0$ & $0$\\
+2 & $P_2\to P_3$ & $4\cdot2-4\cdot0$ & $8$\\
+3 & $P_3\to P_4$ & $4\cdot2-2\cdot2$ & $4$\\
+4 & $P_4\to P_5$ & $2\cdot4-2\cdot2$ & $4$\\
+5 & $P_5\to P_6$ & $2\cdot4-0\cdot4$ & $8$\\
+6 & $P_6\to P_1$ & $0\cdot0-0\cdot4$ & $0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\[
+S=24,\qquad A=\frac{24}{2}=\boxed{12}\ \text{u}^2
+\quad(\text{comprobaci\'on: } 4\cdot4-2\cdot2=12).
+\]
+
+\subsection{Caso rechazado: pol\'igono autointersecante (``corbata'')}
+$P_1(0,0),\,P_2(4,4),\,P_3(4,0),\,P_4(0,4)$:
+\begin{align*}
+D_1&=0\cdot4-4\cdot0=0, & D_2&=4\cdot0-4\cdot4=-16,\\
+D_3&=4\cdot4-0\cdot0=16, & D_4&=0\cdot0-0\cdot4=0.
+\end{align*}
+$S=0\Rightarrow A=0$, \textbf{¡un resultado falso!} Los dos tri\'angulos de la
+corbata tienen orientaciones opuestas y se cancelan. Por eso la f\'ormula
+\textbf{solo vale para pol\'igonos simples} y hay que validar antes.
+
+\section{Pseudoc\'odigo}
+\begin{verbatim}
+ENTRADA: lista de n vertices P[1..n]
+1. SI n < 3            -> ERROR "minimo 3 vertices"
+2. SI no esta cerrado  -> ERROR "poligono no cerrado"
+3. SI hay autointerseccion -> ERROR "poligono invalido"
+4. suma <- 0
+5. PARA i DESDE 1 HASTA n:
+       j <- (i mod n) + 1              // el ultimo se une con el primero
+       det <- P[i].x * P[j].y - P[j].x * P[i].y
+       suma <- suma + det
+6. area <- |suma| / 2
+7. SI suma > 0 -> sentido <- antihorario
+   SI suma < 0 -> sentido <- horario
+SALIDA: area, sentido
+\end{verbatim}
+
+\section{Detecci\'on de autointersecci\'on (orientaci\'on de tres puntos)}
+Para tres puntos $A,B,C$ se calcula el producto cruz
+\[
+o(A,B,C)=(B_x-A_x)(C_y-A_y)-(B_y-A_y)(C_x-A_x).
+\]
+\[
+o>0:\ \text{$C$ est\'a a la izquierda de }\overrightarrow{AB},\quad
+o<0:\ \text{a la derecha},\quad
+o=0:\ \text{alineados}.
+\]
+Dos segmentos $AB$ y $CD$ \textbf{se cruzan} si
+\[
+\operatorname{sgn} o(A,B,C)\neq\operatorname{sgn} o(A,B,D)
+\quad\text{y}\quad
+\operatorname{sgn} o(C,D,A)\neq\operatorname{sgn} o(C,D,B),
+\]
+es decir, $C$ y $D$ quedan en lados opuestos de $AB$ \emph{y} $A$ y $B$ en lados
+opuestos de $CD$. Si alg\'un $o=0$, se verifica adem\'as que el punto alineado caiga
+dentro del segmento (caso de tocarse).
+
+Se comparan todos los pares de aristas \textbf{no consecutivas} (las vecinas comparten
+un v\'ertice, y eso es normal); en un pol\'igono cerrado la \'ultima arista tambi\'en
+es vecina de la primera. Costo: $O(n^2)$ comparaciones.
+
+\section{Escalabilidad y prueba con 1\,000 v\'ertices}
+El c\'alculo del \'area hace $n$ determinantes: complejidad $O(n)$.
+
+Para un pol\'igono regular de $n$ lados inscrito en un c\'irculo de radio $r$,
+con $P_k=(r\cos\theta_k,\,r\sin\theta_k)$, $\theta_k=\tfrac{2\pi k}{n}$:
+\[
+D_k=r^2\left(\cos\theta_k\sin\theta_{k+1}-\cos\theta_{k+1}\sin\theta_k\right)
+=r^2\sin\!\left(\tfrac{2\pi}{n}\right)
+\]
+\[
+A_n=\frac{n}{2}\,r^2\sin\!\left(\frac{2\pi}{n}\right)\xrightarrow[n\to\infty]{}\pi r^2 .
+\]
+Con $n=1000$ y $r=10$:
+\[
+A_{1000}=500\cdot100\cdot\sin(0.00628319)\approx 314.1572,\qquad
+\pi r^2\approx 314.1593,
+\]
+\[
+\text{error}\approx 0.0021 \;(\approx 0.0007\,\%).
+\]
+
+\section{Resumen de casos de prueba}
+\begin{center}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Caso & $S$ & Resultado\\
+\midrule
+Cuadrado lado 4 & $32$ & $A=16$, antihorario\\
+Tri\'angulo $(0,0),(4,0),(0,3)$ & $12$ & $A=6$, antihorario\\
+``L'' c\'oncava & $24$ & $A=12$, antihorario\\
+Corbata (autointersecante) & $0$ & \textbf{Rechazado}\\
+C\'irculo, $n=1000$, $r=10$ & --- & $A\approx314.157$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
+

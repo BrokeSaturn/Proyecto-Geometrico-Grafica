@@ -32,6 +32,7 @@
             this.pOINTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lIEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sTARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aREAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -40,7 +41,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pOINTToolStripMenuItem,
             this.lIEToolStripMenuItem,
-            this.sTARToolStripMenuItem});
+            this.sTARToolStripMenuItem,
+            this.aREAToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -68,6 +70,13 @@
             this.sTARToolStripMenuItem.Text = "STAR";
             this.sTARToolStripMenuItem.Click += new System.EventHandler(this.sTARToolStripMenuItem_Click);
             // 
+            // aREAToolStripMenuItem
+            // 
+            this.aREAToolStripMenuItem.Name = "aREAToolStripMenuItem";
+            this.aREAToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.aREAToolStripMenuItem.Text = "AREA";
+            this.aREAToolStripMenuItem.Click += new System.EventHandler(this.aREAToolStripMenuItem_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -91,5 +100,6 @@
         private System.Windows.Forms.ToolStripMenuItem pOINTToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lIEToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sTARToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aREAToolStripMenuItem;
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -46,42 +46,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmLine.cs">
+    <Compile Include="Clases\Area\clsCalculadoraArea.cs" />
+    <Compile Include="Clases\Area\clsPanelDoble.cs" />
+    <Compile Include="Clases\Area\clsPoligono.cs" />
+    <Compile Include="Clases\Area\clsPunto.cs" />
+    <Compile Include="Forms\Area\FrmArea.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmLine.Designer.cs">
+    <Compile Include="Forms\Area\FrmArea.Designer.cs">
+      <DependentUpon>FrmArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Primitivas\FrmLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Primitivas\FrmLine.Designer.cs">
       <DependentUpon>FrmLine.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmPoint.cs">
+    <Compile Include="Forms\Primitivas\FrmPoint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmPoint.Designer.cs">
+    <Compile Include="Forms\Primitivas\FrmPoint.Designer.cs">
       <DependentUpon>FrmPoint.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmStar.cs">
+    <Compile Include="Forms\Primitivas\FrmStar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmStar.Designer.cs">
+    <Compile Include="Forms\Primitivas\FrmStar.Designer.cs">
       <DependentUpon>FrmStar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Home.cs">
+    <Compile Include="Forms\Home.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Home.Designer.cs">
+    <Compile Include="Forms\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmLine.resx">
+    <EmbeddedResource Include="Forms\Area\FrmArea.resx">
+      <DependentUpon>FrmArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Primitivas\FrmLine.resx">
       <DependentUpon>FrmLine.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmPoint.resx">
+    <EmbeddedResource Include="Forms\Primitivas\FrmPoint.resx">
       <DependentUpon>FrmPoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmStar.resx">
+    <EmbeddedResource Include="Forms\Primitivas\FrmStar.resx">
       <DependentUpon>FrmStar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Home.resx">
+    <EmbeddedResource Include="Forms\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -108,3 +121,4 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
+
