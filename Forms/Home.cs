@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,5 +37,13 @@ namespace WindowsFormsApp2
             frmStar.MdiParent = this;
             frmStar.Show();
         }
-    }
+    
+        private void aREAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmArea frmArea = new FrmArea();
+            frmArea.MdiParent = this;
+            frmArea.Show();
+        }
 }
+}
+
