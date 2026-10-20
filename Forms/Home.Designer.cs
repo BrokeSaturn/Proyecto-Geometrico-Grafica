@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp2
+namespace WindowsFormsApp2
 {
     partial class Home
     {
@@ -33,6 +33,7 @@
             this.lIEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sTARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aREAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.distanciaMinimaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +43,8 @@
             this.pOINTToolStripMenuItem,
             this.lIEToolStripMenuItem,
             this.sTARToolStripMenuItem,
-            this.aREAToolStripMenuItem});
+            this.aREAToolStripMenuItem,
+            this.distanciaMinimaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -77,6 +79,13 @@
             this.aREAToolStripMenuItem.Text = "AREA";
             this.aREAToolStripMenuItem.Click += new System.EventHandler(this.aREAToolStripMenuItem_Click);
             // 
+            // distanciaMinimaToolStripMenuItem
+            // 
+            this.distanciaMinimaToolStripMenuItem.Name = "distanciaMinimaToolStripMenuItem";
+            this.distanciaMinimaToolStripMenuItem.Size = new System.Drawing.Size(124, 20);
+            this.distanciaMinimaToolStripMenuItem.Text = "DISTANCIA MINIMA";
+            this.distanciaMinimaToolStripMenuItem.Click += new System.EventHandler(this.distanciaMinimaToolStripMenuItem_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -101,5 +110,6 @@
         private System.Windows.Forms.ToolStripMenuItem lIEToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sTARToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aREAToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem distanciaMinimaToolStripMenuItem;
     }
 }

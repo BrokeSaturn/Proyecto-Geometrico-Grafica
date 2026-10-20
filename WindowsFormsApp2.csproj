@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\Area\clsCalculadoraArea.cs" />
-    <Compile Include="Clases\Area\clsPanelDoble.cs" />
+    <Compile Include="Clases\Area\clsPanelDoble.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Clases\Area\clsPoligono.cs" />
     <Compile Include="Clases\Area\clsPunto.cs" />
     <Compile Include="Forms\Area\FrmArea.cs">
@@ -73,6 +75,22 @@
     </Compile>
     <Compile Include="Forms\Primitivas\FrmStar.Designer.cs">
       <DependentUpon>FrmStar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clases\Distancia\clsCalculadoraGeometrica.cs" />
+    <Compile Include="Clases\Distancia\clsConversorNumerico.cs" />
+    <Compile Include="Clases\Distancia\clsGraficadorTrayectoria.cs" />
+    <Compile Include="Clases\Distancia\clsPanelGrafico.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\Distancia\clsPunto.cs" />
+    <Compile Include="Clases\Distancia\clsResultadoProyeccion.cs" />
+    <Compile Include="Clases\Distancia\clsSegmento.cs" />
+    <Compile Include="Clases\Distancia\TipoProyeccion.cs" />
+    <Compile Include="Forms\Distancia\FrmDistanciaMinima.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Distancia\FrmDistanciaMinima.Designer.cs">
+      <DependentUpon>FrmDistanciaMinima.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Home.cs">
       <SubType>Form</SubType>
@@ -121,4 +139,3 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
-
