@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -43,6 +43,15 @@ namespace WindowsFormsApp2
             FrmArea frmArea = new FrmArea();
             frmArea.MdiParent = this;
             frmArea.Show();
+        }
+
+        private void distanciaMinimaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Maximized;
+            Distancia.FrmDistanciaMinima frmDistanciaMinima = new Distancia.FrmDistanciaMinima();
+            frmDistanciaMinima.MdiParent = this;
+            frmDistanciaMinima.WindowState = FormWindowState.Maximized;
+            frmDistanciaMinima.Show();
         }
 }
 }
