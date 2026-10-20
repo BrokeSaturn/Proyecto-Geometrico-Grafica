@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\Area\clsCalculadoraArea.cs" />
-    <Compile Include="Clases\Area\clsPanelDoble.cs" />
+    <Compile Include="Clases\Area\clsPanelDoble.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Clases\Area\clsPoligono.cs" />
     <Compile Include="Clases\Area\clsPunto.cs" />
     <Compile Include="Forms\Area\FrmArea.cs">
@@ -121,4 +123,3 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
-
