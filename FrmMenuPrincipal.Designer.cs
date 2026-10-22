@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp2
+namespace WindowsFormsApp2
 {
     partial class FrmMenuPrincipal
     {
@@ -87,6 +87,13 @@
             this.distanciaMinimaToolStripMenuItem.Size = new System.Drawing.Size(124, 20);
             this.distanciaMinimaToolStripMenuItem.Text = "DISTANCIA MINIMA";
             this.distanciaMinimaToolStripMenuItem.Click += new System.EventHandler(this.distanciaMinimaToolStripMenuItem_Click);
+            // 
+            // triangulacionToolStripMenuItem
+            // 
+            this.triangulacionToolStripMenuItem.Name = "triangulacionToolStripMenuItem";
+            this.triangulacionToolStripMenuItem.Size = new System.Drawing.Size(185, 20);
+            this.triangulacionToolStripMenuItem.Text = "TRIANGULACION DE POLIGONOS";
+            this.triangulacionToolStripMenuItem.Click += new System.EventHandler(this.triangulacionToolStripMenuItem_Click);
             // 
             // Home
             // 
