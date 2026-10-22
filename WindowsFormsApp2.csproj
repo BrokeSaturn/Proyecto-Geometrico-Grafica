@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -46,74 +46,88 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\Area\clsCalculadoraArea.cs" />
-    <Compile Include="Clases\Area\clsPanelDoble.cs">
+    <Compile Include="Comun\clsConversorNumerico.cs" />
+    <Compile Include="Comun\clsPanelDoble.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Clases\Area\clsPoligono.cs" />
-    <Compile Include="Clases\Area\clsPunto.cs" />
-    <Compile Include="Forms\Area\FrmArea.cs">
+    <Compile Include="Ejercicios\Ejercicio01_Punto\Vistas\FrmPoint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Area\FrmArea.Designer.cs">
-      <DependentUpon>FrmArea.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Primitivas\FrmLine.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Primitivas\FrmLine.Designer.cs">
-      <DependentUpon>FrmLine.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Primitivas\FrmPoint.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Primitivas\FrmPoint.Designer.cs">
+    <Compile Include="Ejercicios\Ejercicio01_Punto\Vistas\FrmPoint.Designer.cs">
       <DependentUpon>FrmPoint.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Primitivas\FrmStar.cs">
+    <Compile Include="Ejercicios\Ejercicio02_Linea\Vistas\FrmLine.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Primitivas\FrmStar.Designer.cs">
+    <Compile Include="Ejercicios\Ejercicio02_Linea\Vistas\FrmLine.Designer.cs">
+      <DependentUpon>FrmLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ejercicios\Ejercicio03_Estrella\Vistas\FrmStar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ejercicios\Ejercicio03_Estrella\Vistas\FrmStar.Designer.cs">
       <DependentUpon>FrmStar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Clases\Distancia\clsCalculadoraGeometrica.cs" />
-    <Compile Include="Clases\Distancia\clsConversorNumerico.cs" />
-    <Compile Include="Clases\Distancia\clsGraficadorTrayectoria.cs" />
-    <Compile Include="Clases\Distancia\clsPanelGrafico.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Clases\Distancia\clsPunto.cs" />
-    <Compile Include="Clases\Distancia\clsResultadoProyeccion.cs" />
-    <Compile Include="Clases\Distancia\clsSegmento.cs" />
-    <Compile Include="Clases\Distancia\TipoProyeccion.cs" />
-    <Compile Include="Forms\Distancia\FrmDistanciaMinima.cs">
+    <Compile Include="Ejercicios\Ejercicio04_Area\Modelos\clsPoligono.cs" />
+    <Compile Include="Ejercicios\Ejercicio04_Area\Modelos\clsPunto.cs" />
+    <Compile Include="Ejercicios\Ejercicio04_Area\Servicios\clsCalculadoraArea.cs" />
+    <Compile Include="Ejercicios\Ejercicio04_Area\Vistas\FrmArea.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Distancia\FrmDistanciaMinima.Designer.cs">
+    <Compile Include="Ejercicios\Ejercicio04_Area\Vistas\FrmArea.Designer.cs">
+      <DependentUpon>FrmArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ejercicios\Ejercicio05_DistanciaMinima\Modelos\clsPunto.cs" />
+    <Compile Include="Ejercicios\Ejercicio05_DistanciaMinima\Modelos\clsResultadoProyeccion.cs" />
+    <Compile Include="Ejercicios\Ejercicio05_DistanciaMinima\Modelos\clsSegmento.cs" />
+    <Compile Include="Ejercicios\Ejercicio05_DistanciaMinima\Modelos\TipoProyeccion.cs" />
+    <Compile Include="Ejercicios\Ejercicio05_DistanciaMinima\Servicios\clsCalculadoraGeometrica.cs" />
+    <Compile Include="Ejercicios\Ejercicio05_DistanciaMinima\Vistas\clsGraficadorTrayectoria.cs" />
+    <Compile Include="Ejercicios\Ejercicio05_DistanciaMinima\Vistas\FrmDistanciaMinima.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ejercicios\Ejercicio05_DistanciaMinima\Vistas\FrmDistanciaMinima.Designer.cs">
       <DependentUpon>FrmDistanciaMinima.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Home.cs">
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Modelos\clsPunto2D.cs" />
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Modelos\clsTriangulo.cs" />
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Modelos\clsPoligono.cs" />
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Modelos\clsResultadoTriangulacion.cs" />
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Servicios\clsGeometria.cs" />
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Servicios\clsValidadorPoligono.cs" />
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Servicios\clsTriangulador.cs" />
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Vistas\clsDibujanteTriangulacion.cs" />
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Vistas\clsLienzoPoligono.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Vistas\FrmTriangulacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Home.Designer.cs">
-      <DependentUpon>Home.cs</DependentUpon>
+    <Compile Include="Ejercicios\Ejercicio_Triangulacion\Vistas\FrmTriangulacion.Designer.cs">
+      <DependentUpon>FrmTriangulacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMenuPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMenuPrincipal.Designer.cs">
+      <DependentUpon>FrmMenuPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\Area\FrmArea.resx">
-      <DependentUpon>FrmArea.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Primitivas\FrmLine.resx">
-      <DependentUpon>FrmLine.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Primitivas\FrmPoint.resx">
+    <EmbeddedResource Include="Ejercicios\Ejercicio01_Punto\Vistas\FrmPoint.resx">
       <DependentUpon>FrmPoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Primitivas\FrmStar.resx">
+    <EmbeddedResource Include="Ejercicios\Ejercicio02_Linea\Vistas\FrmLine.resx">
+      <DependentUpon>FrmLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ejercicios\Ejercicio03_Estrella\Vistas\FrmStar.resx">
       <DependentUpon>FrmStar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Home.resx">
-      <DependentUpon>Home.cs</DependentUpon>
+    <EmbeddedResource Include="Ejercicios\Ejercicio04_Area\Vistas\FrmArea.resx">
+      <DependentUpon>FrmArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMenuPrincipal.resx">
+      <DependentUpon>FrmMenuPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
